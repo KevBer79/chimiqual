@@ -45,18 +45,25 @@ function genererTableau() {
    });
 }
 function validerReponses() {
-   let score = 0;
-   affirmations.forEach((a, index) => {
-       const selected = document.querySelector(`input[name="q${index}"]:checked`);
-       if (selected && selected.value === a.correcte) {
-           score++;
+   const bonnesReponses = {
+       "Contrôle 1": "conforme",
+       "Contrôle 2": "non conforme",
+       "Contrôle 3": "conforme",
+       // Ajoute ici toutes les bonnes réponses attendues
+   };
+   let toutBon = true;
+   for (const nom in bonnesReponses) {
+       const reponse = document.querySelector(`input[name="${nom}"]:checked`);
+       if (!reponse || reponse.value !== bonnesReponses[nom]) {
+           toutBon = false;
+           break;
        }
-   });
-   const resultat = document.getElementById("resultat");
-   if (score === affirmations.length) {
-       resultat.innerHTML = "<h3>🎉 Bravo, toutes les réponses sont correctes !</h3>";
+   }
+   if (toutBon) {
+       // ✅ Tout est bon, on passe à la page suivante
+       window.location.href = "association.html";
    } else {
-       resultat.innerHTML = `<h3>❌ Vous avez ${score} bonne(s) réponse(s) sur ${affirmations.length}.</h3>`;
+       alert("Certaines réponses sont incorrectes. Essayez encore !");
    }
 }
 window.onload = function () {
