@@ -46,9 +46,11 @@ function genererTableau() {
 }
 function validerReponses() {
    const bonnesReponses = {
-       "Contrôle 1": "conforme",
-       "Contrôle 2": "non conforme",
-       "Contrôle 3": "conforme",
+       "Contrôle 1": "Conforme",
+       "Contrôle 2": "Conforme",
+       "Contrôle 3": "Non Conforme",
+      "Contrôle 4": "Non Conforme",
+       "Contrôle 5": "Conforme",
        // Ajoute ici toutes les bonnes réponses attendues
    };
    let toutBon = true;
