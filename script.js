@@ -1,8 +1,9 @@
 const affirmations = [
-   { texte: "Un aliment peut rester 3h hors frigo sans danger", correcte: "faux" },
-   { texte: "Se laver les mains est obligatoire avant de toucher la matière", correcte: "vrai" },
-   { texte: "On peut poser des pièces sur le sol si c’est propre", correcte: "faux" },
-   { texte: "Il faut vérifier les températures de conservation régulièrement", correcte: "vrai" },
+   { texte: "Contrôle des rinçages des lignes après nettoyage de la nuit", correcte: "Conforme" },
+   { texte: "Contrôle du surplus de graisse sur les machines au début de production pour les monteurs:", correcte: "Conforme" },
+   { texte: "Contrôle d’utilisation d’encre adaptée pour impression sur emballages alimentaires ", correcte: "Non Conforme" },
+   { texte: "Contrôle certificat alimentarité sur les joints, les produits de lubrification et les tapis", correcte: "Non Conforme" },
+   { texte: "Contrôle de l’identification des bidons désinfectants pour les mains", correcte: "Conforme" },
 ];
 function startCountdown(minutes) {
    const timerElement = document.getElementById("timer");
@@ -29,13 +30,13 @@ function genererTableau() {
        const inputVrai = document.createElement("input");
        inputVrai.type = "radio";
        inputVrai.name = `q${index}`;
-       inputVrai.value = "vrai";
+       inputVrai.value = "Conforme";
        tdVrai.appendChild(inputVrai);
        const tdFaux = document.createElement("td");
        const inputFaux = document.createElement("input");
        inputFaux.type = "radio";
        inputFaux.name = `q${index}`;
-       inputFaux.value = "faux";
+       inputFaux.value = "Non Conforme";
        tdFaux.appendChild(inputFaux);
        tr.appendChild(tdTexte);
        tr.appendChild(tdVrai);
