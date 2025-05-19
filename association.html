@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Association Images et Mots</title>
+<link rel="stylesheet" href="style.css">
+<style>
+        .association-container {
+            text-align: center;
+            padding: 20px;
+            color: white;
+        }
+        .images-zone, .mots-zone {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .drop-zone {
+            border: 2px dashed #ccc;
+            padding: 10px;
+            width: 150px;
+            height: 150px;
+            background-color: rgba(255,255,255,0.1);
+            position: relative;
+        }
+        .drop-zone img {
+            max-width: 100%;
+            height: auto;
+        }
+        .draggable {
+            background-color: #002bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: grab;
+            user-select: none;
+        }
+        #feedback {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+</style>
+</head>
+<body>
+<div class="association-container" id="jeu-association" style="display: none;">
+<h2>Associe chaque image au mot correspondant</h2>
+<div class="images-zone">
+<div class="drop-zone" data-correct="EPI"><img src="images/casque.png"></div>
+<div class="drop-zone" data-correct="Non-conformité"><img src="images/desordre.png"></div>
+<div class="drop-zone" data-correct="Consigne"><img src="images/consigne.png"></div>
+<div class="drop-zone" data-correct="Propreté"><img src="images/nettoyage.png"></div>
+<div class="drop-zone" data-correct="Danger"><img src="images/danger.png"></div>
+<div class="drop-zone" data-correct="Formation"><img src="images/formation.png"></div>
+<div class="drop-zone" data-correct="Machine"><img src="images/machine.png"></div>
+<div class="drop-zone" data-correct="Produit chimique"><img src="images/produit.png"></div>
+<div class="drop-zone" data-correct="Tri sélectif"><img src="images/tri.png"></div>
+</div>
+<div class="mots-zone">
+<div class="draggable" draggable="true" data-word="EPI">EPI</div>
+<div class="draggable" draggable="true" data-word="Non-conformité">Non-conformité</div>
+<div class="draggable" draggable="true" data-word="Consigne">Consigne</div>
+<div class="draggable" draggable="true" data-word="Propreté">Propreté</div>
+<div class="draggable" draggable="true" data-word="Danger">Danger</div>
+<div class="draggable" draggable="true" data-word="Formation">Formation</div>
+<div class="draggable" draggable="true" data-word="Machine">Machine</div>
+<div class="draggable" draggable="true" data-word="Produit chimique">Produit chimique</div>
+<div class="draggable" draggable="true" data-word="Tri sélectif">Tri sélectif</div>
+</div>
+<button onclick="validerAssociations()">Valider</button>
+<div id="feedback"></div>
+</div>
+<script>
+
+        const draggables = document.querySelectorAll('.draggable');
+        const dropZones = document.querySelectorAll('.drop-zone');
+        draggables.forEach(drag => {
+            drag.addEventListener('dragstart', e => {
+                e.dataTransfer.setData('text/plain', drag.getAttribute('data-word'));
+            });
+        });
+        dropZones.forEach(zone => {
+            zone.addEventListener('dragover', e => e.preventDefault());
+            zone.addEventListener('drop', e => {
+                e.preventDefault();
+                const droppedWord = e.dataTransfer.getData('text/plain');
+                zone.setAttribute('data-user', droppedWord);
+                zone.innerHTML += `<div style="position:absolute;bottom:5px;width:100%;font-weight:bold;">${droppedWord}</div>`;
+            });
+
+        });
+
+        function validerAssociations() {
+            let score = 0;
+            dropZones.forEach(zone => {
+                if (zone.getAttribute('data-user') === zone.getAttribute('data-correct')) {
+                    score++;
+                }
+            });
+
+            const feedback = document.getElementById('feedback');
+            if (score === dropZones.length) {
+                feedback.textContent = `Bravo ! Toutes les associations sont correctes.`;
+                feedback.style.color = 'lightgreen';
+            } else {
+                feedback.textContent = `${score} bonnes réponses sur ${dropZones.length}. Essayez encore !`;
+                feedback.style.color = 'orange';
+            }
+        }
+        // Cette fonction peut être appelée une fois le tableau validé :
+        function lancerJeuAssociation() {
+            document.getElementById('jeu-association').style.display = 'block';
+
+        }
+</script>
+</body>
+</html>
+ 
