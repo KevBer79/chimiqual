@@ -1,0 +1,109 @@
+body {
+   font-family: 'Arial', sans-serif;
+   background: url('images/Plan_usine.png') no-repeat center center fixed;
+   background-size: cover;
+   color: white;
+   text-align: center;
+   margin: 0;
+   padding: 0;
+   height: 100vh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   backdrop-filter: brightness(0.8);
+}
+.container {
+   background: rgba(0, 0, 0, 0.85);
+   padding: 30px;
+   border-radius: 15px;
+   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
+   width: 90%;
+   max-width: 800px;
+   border: 3px solid #444;
+   text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+   margin: 20px;
+}
+h2 {
+   font-size: 2.5rem;
+   text-transform: uppercase;
+   letter-spacing: 2px;
+   color: #444aff;
+   text-shadow: 3px 3px 10px rgba(0, 69, 255, 0.5);
+   margin-bottom: 20px;
+}
+p {
+   font-size: 1.2rem;
+   margin-bottom: 20px;
+}
+button {
+   background-color: #222;
+   color: white;
+   border: 2px solid #555;
+   padding: 12px 20px;
+   border-radius: 8px;
+   font-size: 1.2rem;
+   cursor: pointer;
+   transition: 0.3s;
+   margin-top: 15px;
+   text-transform: uppercase;
+   align-items: center;
+   box-shadow: 2px 2px 10px rgba(0, 69, 255, 0.3);
+}
+button:hover {
+   background-color: #002bff;
+   border-color: white;
+   transform: scale(1.05);
+}
+#next-button {
+   display: block;
+   margin: 20px auto 0 auto;
+}
+.timer-container,
+#timer {
+   background: rgba(0, 69, 255, 0.85);
+   padding: 20px;
+   border-radius: 15px;
+   box-shadow: 0 10px 20px rgba(0, 69, 255, 0.7);
+   width: 100%;
+   max-width: 600px;
+   border: 3px solid #002eaa;
+   text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+   margin-top: 20px;
+   font-size: 2rem;
+   font-weight: bold;
+   text-transform: uppercase;
+}
+/* === Tableau Vrai/Faux === */
+table {
+   width: 100%;
+   border-collapse: collapse;
+   margin-top: 20px;
+   background-color: rgba(255, 255, 255, 0.1);
+   color: white;
+   border: 1px solid #555;
+}
+th, td {
+   border: 1px solid #aaa;
+   padding: 12px 10px;
+   text-align: center;
+   font-size: 1.1rem;
+}
+th {
+   background-color: #0033cc;
+   color: white;
+   text-transform: uppercase;
+}
+td:first-child {
+   text-align: left;
+   font-weight: bold;
+   font-size: 1.2rem;
+}
+/* === Résultat après validation === */
+#resultat {
+   margin-top: 25px;
+   font-size: 1.5rem;
+   font-weight: bold;
+   color: #00ff99;
+   text-shadow: 1px 1px 10px rgba(0, 255, 100, 0.7);
+}
