@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Vrai ou Faux - Escape Game</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+<h2>Vrai ou Faux ?</h2>
+<p>
+           Pour chaque affirmation, cochez si elle est vraie ou fausse.<br>
+           Vous avez 15 minutes pour terminer !
+</p>
+<div id="timer" class="timer-container"></div>
+<form id="quiz-form">
+<table>
+<thead>
+<tr>
+<th>Affirmation</th>
+<th>Vrai</th>
+<th>Faux</th>
+</tr>
+</thead>
+<tbody id="table-body">
+<!-- Dynamically filled by JS -->
+</tbody>
+</table>
+<button type="button" onclick="validerReponses()">Valider</button>
+</form>
+<div id="resultat"></div>
+</div>
+<script src="page3.js"></script>
+</body>
+</html>
