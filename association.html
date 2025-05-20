@@ -5,80 +5,43 @@
 <title>Association Images et Mots</title>
 <link rel="stylesheet" href="style.css">
 <style>
-
-    .association-container {
-
-      text-align: center;
-
-      padding: 20px;
-
-      color: white;
-
-    }
-
-    .images-zone, .mots-zone {
-
-      display: flex;
-
-      flex-wrap: wrap;
-
-      justify-content: center;
-
-      gap: 20px;
-
-      margin: 20px 0;
-
-    }
-
-    .drop-zone {
-
-      border: 2px dashed #ccc;
-
-      padding: 10px;
-
-      width: 150px;
-
-      height: 150px;
-
-      background-color: rgba(255,255,255,0.1);
-
-      position: relative;
-
-    }
-
-    .drop-zone img {
-
-      max-width: 100%;
-
-      height: auto;
-
-    }
-
-    .draggable {
-
-      background-color: #002bff;
-
-      color: white;
-
-      padding: 10px 15px;
-
-      border-radius: 8px;
-
-      cursor: grab;
-
-      user-select: none;
-
-    }
-
-    #feedback {
-
-      margin-top: 20px;
-
-      font-size: 1.2rem;
-
-      font-weight: bold;
-
-    }
+    .association-container {
+      text-align: center;
+      padding: 20px;
+      color: white;
+    }
+    .images-zone, .mots-zone {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+    }
+    .drop-zone {
+      border: 2px dashed #ccc;
+      padding: 10px;
+      width: 150px;
+      height: 150px;
+      background-color: rgba(255,255,255,0.1);
+      position: relative;
+    }
+    .drop-zone img {
+      max-width: 100%;
+      height: auto;
+    }
+    .draggable {
+      background-color: #002bff;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: grab;
+      user-select: none;
+    }
+    #feedback {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
 </style>
 </head>
 <body>
@@ -110,129 +73,109 @@
 <button onclick="validerAssociations()">Valider</button>
 <div id="feedback"></div>
 </div>
+
 <script>
+    // Variable globale pour le compte à rebours afin de pouvoir le gérer
+    let countdownInterval;
 
-    const draggables = document.querySelectorAll('.draggable');
-
-    const dropZones = document.querySelectorAll('.drop-zone');
-
-    draggables.forEach(drag => {
-
-      drag.addEventListener('dragstart', e => {
-
-        e.dataTransfer.setData('text/plain', drag.getAttribute('data-word'));
-
-      });
-
-    });
-
-    dropZones.forEach(zone => {
-
-      zone.addEventListener('dragover', e => e.preventDefault());
-
-      zone.addEventListener('drop', e => {
-
-        e.preventDefault();
-
-        const droppedWord = e.dataTransfer.getData('text/plain');
-
-        zone.setAttribute('data-user', droppedWord);
-
-const label = document.createElement('div');
-
-label.textContent = droppedWord;
-
-label.style.cssText = `
-
-  position: absolute;
-
-  bottom: 5px;
-
-  width: 100%;
-
-  font-weight: bold;
-
-  background-color: rgba(0, 0, 0, 0.7);
-
-  color: white;
-
-  padding: 4px 0;
-
-  text-align: center;
-
-  border-radius: 5px;
-
-  font-size: 0.9rem;
-
-`;
-
-zone.querySelectorAll('div').forEach(div => {
-
-  if (div !== zone.firstElementChild) div.remove();
-
-});
-
-zone.appendChild(label);
- 
-
-      });
-
-    });
-
-    function validerAssociations() {
-
-      let score = 0;
-
-      dropZones.forEach(zone => {
-
-        if (zone.getAttribute('data-user') === zone.getAttribute('data-correct')) {
-
-          score++;
-
-        }
-
-      });
-
-      const feedback = document.getElementById('feedback');
-
-      if (score === dropZones.length) {
-
-        feedback.textContent = `Bravo ! Toutes les associations sont correctes.`;
-
-        feedback.style.color = 'lightgreen';
-
-      } else {
-
-        feedback.textContent = `${score} bonnes réponses sur ${dropZones.length}. Essayez encore !`;
-
-        feedback.style.color = 'orange';
-
-      }
-
-    }
-</script>
-<script>
     function startCountdownFromStorage() {
         const timerElement = document.getElementById("timer");
-        let timeLeft = parseInt(localStorage.getItem("timeLeft"), 10) || 0;
+        // Récupère le temps restant, s'il n'existe pas, initialise à 0 ou à une valeur par défaut
+        let timeLeft = parseInt(localStorage.getItem("timeLeft"), 10);
 
-        const countdown = setInterval(() => {
+        // Si le temps n'est pas défini ou est négatif (déjà écoulé),
+        // on pourrait décider de ne pas afficher de compte à rebours ou de le laisser à "écoulé"
+        if (isNaN(timeLeft) || timeLeft <= 0) {
+            timerElement.textContent = "⏳ Temps écoulé !";
+            localStorage.removeItem("timeLeft"); // Nettoie le localStorage si le temps est écoulé
+            return; // Arrête la fonction si le temps est déjà écoulé
+        }
+
+        // Efface tout intervalle précédent pour éviter les chevauchements
+        if (countdownInterval) {
+            clearInterval(countdownInterval);
+        }
+
+        countdownInterval = setInterval(() => {
             const min = Math.floor(timeLeft / 60);
             const sec = timeLeft % 60;
             timerElement.textContent = `⏳ Temps restant : ${min}:${sec < 10 ? "0" : ""}${sec} ⏳`;
 
-            localStorage.setItem("timeLeft", timeLeft);
+            localStorage.setItem("timeLeft", timeLeft); // Sauvegarde à chaque tick
 
             if (timeLeft <= 0) {
-                clearInterval(countdown);
+                clearInterval(countdownInterval);
                 timerElement.textContent = "⏳ Temps écoulé !";
-                localStorage.removeItem("timeLeft");
+                localStorage.removeItem("timeLeft"); // Nettoyage
+                // Ici, tu pourrais ajouter une action, comme désactiver le jeu
+                return;
             }
 
             timeLeft--;
         }, 1000);
     }
 
+
+    const draggables = document.querySelectorAll('.draggable');
+    const dropZones = document.querySelectorAll('.drop-zone');
+
+    draggables.forEach(drag => {
+      drag.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', drag.getAttribute('data-word'));
+      });
+    });
+
+    dropZones.forEach(zone => {
+      zone.addEventListener('dragover', e => e.preventDefault());
+      zone.addEventListener('drop', e => {
+        e.preventDefault();
+        const droppedWord = e.dataTransfer.getData('text/plain');
+        zone.setAttribute('data-user', droppedWord);
+
+        const label = document.createElement('div');
+        label.textContent = droppedWord;
+        label.style.cssText = `
+          position: absolute;
+          bottom: 5px;
+          width: 100%;
+          font-weight: bold;
+          background-color: rgba(0, 0, 0, 0.7);
+          color: white;
+          padding: 4px 0;
+          text-align: center;
+          border-radius: 5px;
+          font-size: 0.9rem;
+        `;
+
+        zone.querySelectorAll('div').forEach(div => {
+          if (div !== zone.firstElementChild) div.remove();
+        });
+        zone.appendChild(label);
+      });
+    });
+
+    function validerAssociations() {
+      let score = 0;
+      dropZones.forEach(zone => {
+        if (zone.getAttribute('data-user') === zone.getAttribute('data-correct')) {
+          score++;
+        }
+      });
+
+      const feedback = document.getElementById('feedback');
+      if (score === dropZones.length) {
+        feedback.textContent = `Bravo ! Toutes les associations sont correctes.`;
+        feedback.style.color = 'lightgreen';
+        // Tu peux choisir de nettoyer le temps si le jeu est réussi
+        localStorage.removeItem("timeLeft");
+        // Et éventuellement rediriger vers une autre page
+      } else {
+        feedback.textContent = `${score} bonnes réponses sur ${dropZones.length}. Essayez encore !`;
+        feedback.style.color = 'orange';
+      }
+    }
+
+    // Lance le compte à rebours au chargement de la page
     window.onload = function () {
         startCountdownFromStorage();
     };
@@ -240,4 +183,3 @@ zone.appendChild(label);
 
 </body>
 </html>
- 
