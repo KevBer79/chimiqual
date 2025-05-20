@@ -2,38 +2,31 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Vrai ou Faux - Escape Game</title>
+<title>Escape Game Qualité</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
-<h2>Vrai ou Faux ?</h2>
+<div id="consignes-container">
+<h2>Bienvenue dans l'escape game Qualité !</h2>
 <div class="instructions">
-<p>Devant vous, un tableau de conformité et de non-conformité.</p>
-<p>Commencez par rechercher tous les éléments importants présents dans la pièce pour comprendre la situation.</p>
+<p>Devant vous, un enregistrement et plusieurs questions.</p>
+<p>Commencez par écouter attentivement l’enregistrement audio. Il contient des éléments clés pour comprendre la situation.</p>
 <p>Ensuite, complétez la feuille posée devant vous avec vos premières hypothèses.</p>
-<p>Prenez le temps de discuter en équipe : confrontez vos idées, débattez des meilleures réponses.</p>
+<p>Prenez le temps de discuter en équipe et d’écouter autant de fois l’audio : confrontez vos idées, débattez des meilleures réponses.</p>
 <p>Une fois votre décision prise, saisissez vos réponses sur la tablette pour valider votre choix.</p>
 <p><strong>Attention : votre temps est compté… </strong></p>
 </div>
-<div id="timer" class="timer-container"></div>
-<form id="quiz-form">
-<table>
-<thead>
-<tr>
-<th>Nom du Contrôle</th>
-<th>Conforme</th>
-<th>Non Conforme</th>
-</tr>
-</thead>
-<tbody id="table-body">
-<!-- Dynamically filled by JS -->
-</tbody>
-</table>
-<button type="button" onclick="validerReponses()">Valider</button>
-</form>
-<div id="resultat"></div>
+<div>
+<button onclick="demarrerQuestionnaire()">Démarrer</button>
+</div>
+</div>
+<div id="timer" style="display: none;"></div>
+<div id="questionnaire" style="display: none;">
+<div id="question-text"></div>
+<div id="options-container"></div>
+<button id="next-button" style="display: none;">Suivant</button>
 </div>
 <script src="script.js"></script>
 </body>
 </html>
+ 
