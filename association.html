@@ -5,50 +5,87 @@
 <title>Association Images et Mots</title>
 <link rel="stylesheet" href="style.css">
 <style>
-        .association-container {
-            text-align: center;
-            padding: 20px;
-            color: white;
-        }
-        .images-zone, .mots-zone {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-        }
-        .drop-zone {
-            border: 2px dashed #ccc;
-            padding: 10px;
-            width: 150px;
-            height: 150px;
-            background-color: rgba(255,255,255,0.1);
-            position: relative;
-        }
-        .drop-zone img {
-            max-width: 100%;
-            height: auto;
-        }
-        .draggable {
-            background-color: #002bff;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: grab;
-            user-select: none;
-        }
-        #feedback {
-            margin-top: 20px;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
+
+    .association-container {
+
+      text-align: center;
+
+      padding: 20px;
+
+      color: white;
+
+    }
+
+    .images-zone, .mots-zone {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      justify-content: center;
+
+      gap: 20px;
+
+      margin: 20px 0;
+
+    }
+
+    .drop-zone {
+
+      border: 2px dashed #ccc;
+
+      padding: 10px;
+
+      width: 150px;
+
+      height: 150px;
+
+      background-color: rgba(255,255,255,0.1);
+
+      position: relative;
+
+    }
+
+    .drop-zone img {
+
+      max-width: 100%;
+
+      height: auto;
+
+    }
+
+    .draggable {
+
+      background-color: #002bff;
+
+      color: white;
+
+      padding: 10px 15px;
+
+      border-radius: 8px;
+
+      cursor: grab;
+
+      user-select: none;
+
+    }
+
+    #feedback {
+
+      margin-top: 20px;
+
+      font-size: 1.2rem;
+
+      font-weight: bold;
+
+    }
 </style>
 </head>
 <body>
-<div class="association-container" id="jeu-association" style="display: none;">
+<div class="association-container" id="jeu-association">
 <h2>Associe chaque image au mot correspondant</h2>
 <div class="images-zone">
-<div class="drop-zone" data-correct="EPI"><img src="images/Comburant.gif"></div>
+<div class="drop-zone" data-correct="Comburant"><img src="images/Comburant.gif"></div>
 <div class="drop-zone" data-correct="Non-conformité"><img src="images/Corrosif.gif"></div>
 <div class="drop-zone" data-correct="Consigne"><img src="images/Danger pour l'environnement.gif"></div>
 <div class="drop-zone" data-correct="Propreté"><img src="images/Danger pour la santé.gif"></div>
@@ -74,46 +111,77 @@
 </div>
 <script>
 
-        const draggables = document.querySelectorAll('.draggable');
-        const dropZones = document.querySelectorAll('.drop-zone');
-        draggables.forEach(drag => {
-            drag.addEventListener('dragstart', e => {
-                e.dataTransfer.setData('text/plain', drag.getAttribute('data-word'));
-            });
-        });
-        dropZones.forEach(zone => {
-            zone.addEventListener('dragover', e => e.preventDefault());
-            zone.addEventListener('drop', e => {
-                e.preventDefault();
-                const droppedWord = e.dataTransfer.getData('text/plain');
-                zone.setAttribute('data-user', droppedWord);
-                zone.innerHTML += `<div style="position:absolute;bottom:5px;width:100%;font-weight:bold;">${droppedWord}</div>`;
-            });
+    const draggables = document.querySelectorAll('.draggable');
 
-        });
+    const dropZones = document.querySelectorAll('.drop-zone');
 
-        function validerAssociations() {
-            let score = 0;
-            dropZones.forEach(zone => {
-                if (zone.getAttribute('data-user') === zone.getAttribute('data-correct')) {
-                    score++;
-                }
-            });
+    draggables.forEach(drag => {
 
-            const feedback = document.getElementById('feedback');
-            if (score === dropZones.length) {
-                feedback.textContent = `Bravo ! Toutes les associations sont correctes.`;
-                feedback.style.color = 'lightgreen';
-            } else {
-                feedback.textContent = `${score} bonnes réponses sur ${dropZones.length}. Essayez encore !`;
-                feedback.style.color = 'orange';
-            }
+      drag.addEventListener('dragstart', e => {
+
+        e.dataTransfer.setData('text/plain', drag.getAttribute('data-word'));
+
+      });
+
+    });
+
+    dropZones.forEach(zone => {
+
+      zone.addEventListener('dragover', e => e.preventDefault());
+
+      zone.addEventListener('drop', e => {
+
+        e.preventDefault();
+
+        const droppedWord = e.dataTransfer.getData('text/plain');
+
+        zone.setAttribute('data-user', droppedWord);
+
+        const label = document.createElement('div');
+
+        label.textContent = droppedWord;
+
+        label.style.cssText = 'position:absolute;bottom:5px;width:100%;font-weight:bold;';
+
+        zone.querySelectorAll('div').forEach(div => { if (div !== zone.firstElementChild) div.remove(); });
+
+        zone.appendChild(label);
+
+      });
+
+    });
+
+    function validerAssociations() {
+
+      let score = 0;
+
+      dropZones.forEach(zone => {
+
+        if (zone.getAttribute('data-user') === zone.getAttribute('data-correct')) {
+
+          score++;
+
         }
-        // Cette fonction peut être appelée une fois le tableau validé :
-        function lancerJeuAssociation() {
-            document.getElementById('jeu-association').style.display = 'block';
 
-        }
+      });
+
+      const feedback = document.getElementById('feedback');
+
+      if (score === dropZones.length) {
+
+        feedback.textContent = `Bravo ! Toutes les associations sont correctes.`;
+
+        feedback.style.color = 'lightgreen';
+
+      } else {
+
+        feedback.textContent = `${score} bonnes réponses sur ${dropZones.length}. Essayez encore !`;
+
+        feedback.style.color = 'orange';
+
+      }
+
+    }
 </script>
 </body>
 </html>
