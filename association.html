@@ -97,14 +97,14 @@
 </div>
 <div class="mots-zone">
 <div class="draggable" draggable="true" data-word="Comburant">Comburant</div>
-<div class="draggable" draggable="true" data-word="Non-conformité">Non-conformité</div>
-<div class="draggable" draggable="true" data-word="Consigne">Consigne</div>
-<div class="draggable" draggable="true" data-word="Propreté">Propreté</div>
-<div class="draggable" draggable="true" data-word="Danger">Danger</div>
-<div class="draggable" draggable="true" data-word="Formation">Formation</div>
-<div class="draggable" draggable="true" data-word="Machine">Machine</div>
-<div class="draggable" draggable="true" data-word="Produit chimique">Produit chimique</div>
-<div class="draggable" draggable="true" data-word="Tri sélectif">Tri sélectif</div>
+<div class="draggable" draggable="true" data-word="Danger pour la santé">Danger pour la santé</div>
+<div class="draggable" draggable="true" data-word="Corrosif">Corrosif</div>
+<div class="draggable" draggable="true" data-word="Gaz sous pression">Gaz sous pression</div>
+<div class="draggable" draggable="true" data-word="Explosif">Explosif</div>
+<div class="draggable" draggable="true" data-word="Comburant">Comburant</div>
+<div class="draggable" draggable="true" data-word="Inflammable">Inflammable</div>
+<div class="draggable" draggable="true" data-word="Nocif ou irritant">Nocif ou irritant</div>
+<div class="draggable" draggable="true" data-word="Danger pour l’environnement">Danger pour l’environnement</div>
 </div>
 <button onclick="validerAssociations()">Valider</button>
 <div id="feedback"></div>
@@ -137,15 +137,42 @@
 
         zone.setAttribute('data-user', droppedWord);
 
-        const label = document.createElement('div');
+const label = document.createElement('div');
 
-        label.textContent = droppedWord;
+label.textContent = droppedWord;
 
-        label.style.cssText = 'position:absolute;bottom:5px;width:100%;font-weight:bold;';
+label.style.cssText = `
 
-        zone.querySelectorAll('div').forEach(div => { if (div !== zone.firstElementChild) div.remove(); });
+  position: absolute;
 
-        zone.appendChild(label);
+  bottom: 5px;
+
+  width: 100%;
+
+  font-weight: bold;
+
+  background-color: rgba(0, 0, 0, 0.7);
+
+  color: white;
+
+  padding: 4px 0;
+
+  text-align: center;
+
+  border-radius: 5px;
+
+  font-size: 0.9rem;
+
+`;
+
+zone.querySelectorAll('div').forEach(div => {
+
+  if (div !== zone.firstElementChild) div.remove();
+
+});
+
+zone.appendChild(label);
+ 
 
       });
 
