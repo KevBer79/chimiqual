@@ -13,33 +13,30 @@ const affirmations = [
 ];
 
 function startCountdown(minutes) {
+    const timerElement = document.getElementById("timer");
+    let timeLeft = minutes * 60;
 
-  const timerElement = document.getElementById("timer");
-
-  let timeLeft = minutes * 60;
-
-  const countdown = setInterval(() => {
-
-    const min = Math.floor(timeLeft / 60);
-
-    const sec = timeLeft % 60;
-
-    timerElement.textContent = `⏳ Temps restant : ${min}:${sec < 10 ? "0" : ""}${sec} ⏳`;
-
-    if (timeLeft <= 0) {
-
-      clearInterval(countdown);
-
-      timerElement.textContent = "⏳ Temps écoulé !";
-
-      validerReponses();
-
+    // Charger le temps restant stocké s’il existe
+    if (localStorage.getItem("timeLeft")) {
+        timeLeft = parseInt(localStorage.getItem("timeLeft"), 10);
     }
 
-    timeLeft--;
+    const countdown = setInterval(() => {
+        const min = Math.floor(timeLeft / 60);
+        const sec = timeLeft % 60;
+        timerElement.textContent = `⏳ Temps restant : ${min}:${sec < 10 ? "0" : ""}${sec} ⏳`;
 
-  }, 1000);
+        localStorage.setItem("timeLeft", timeLeft); // Sauvegarde à chaque tick
 
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            localStorage.removeItem("timeLeft"); // Nettoyage
+            timerElement.textContent = "⏳ Temps écoulé !";
+            validerReponses(); // ou rediriger automatiquement
+        }
+
+        timeLeft--;
+    }, 1000);
 }
 
 function genererTableau() {
