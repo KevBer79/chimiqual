@@ -91,7 +91,7 @@ function validerReponses() {
 
   if (toutBon) {
     // Supprime le temps du localStorage avant de rediriger si la partie est gagnée
-    localStorage.removeItem("timeLeft");
+    // localStorage.removeItem("timeLeft");
     window.location.href = "association.html";
   } else {
     alert("Certaines réponses sont incorrectes. Essayez encore !");
