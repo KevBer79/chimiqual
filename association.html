@@ -82,6 +82,7 @@
 </style>
 </head>
 <body>
+<div id="timer" class="timer-container"></div>
 <div class="association-container" id="jeu-association">
 <h2>Associe chaque image au mot correspondant</h2>
 <div class="images-zone">
@@ -210,6 +211,33 @@ zone.appendChild(label);
 
     }
 </script>
+<script>
+    function startCountdownFromStorage() {
+        const timerElement = document.getElementById("timer");
+        let timeLeft = parseInt(localStorage.getItem("timeLeft"), 10) || 0;
+
+        const countdown = setInterval(() => {
+            const min = Math.floor(timeLeft / 60);
+            const sec = timeLeft % 60;
+            timerElement.textContent = `⏳ Temps restant : ${min}:${sec < 10 ? "0" : ""}${sec} ⏳`;
+
+            localStorage.setItem("timeLeft", timeLeft);
+
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                timerElement.textContent = "⏳ Temps écoulé !";
+                localStorage.removeItem("timeLeft");
+            }
+
+            timeLeft--;
+        }, 1000);
+    }
+
+    window.onload = function () {
+        startCountdownFromStorage();
+    };
+</script>
+
 </body>
 </html>
  
