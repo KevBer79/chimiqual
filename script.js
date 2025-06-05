@@ -2,7 +2,7 @@ const affirmations = [
   { texte: "Contrôle des rinçages des lignes après nettoyage de la nuit", correcte: "Conforme" },
   { texte: "Contrôle du surplus de graisse sur les machines au début de production pour les monteurs:", correcte: "Conforme" },
   { texte: "Contrôle d’utilisation d’encre adaptée pour impression sur emballages alimentaires", correcte: "Non Conforme" },
-  { texte: "Contrôle certificat alimentarité sur les joints, les produits de lubrification et les tapis", correcte: "Non Conforme" },
+  { texte: "Contrôle certificat alimentarité sur les joints, les produits de lubrification et les tapis", correcte: "Conforme" },
   { texte: "Contrôle de l’identification des bidons désinfectants pour les mains", correcte: "Conforme" }
 ];
 
