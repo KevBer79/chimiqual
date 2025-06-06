@@ -57,18 +57,31 @@
 </head>
 <body>
 <div class="association-container" id="jeu-association">
-  <h2>Associe chaque image au mot correspondant</h2>
-  <div class="images-zone">
-    <!-- Les images comme avant -->
-    <!-- ... (rien à modifier ici) ... -->
-  </div>
-  <div class="mots-zone">
-    <!-- Les mots comme avant -->
-    <!-- ... (rien à modifier ici) ... -->
-  </div>
-  <button onclick="validerAssociations()">Valider</button>
-  <button onclick="resetAssociations()">Réinitialiser</button>
-  <div id="feedback"></div>
+    <h2>Associe chaque image au mot correspondant</h2>
+    <div class="images-zone">
+        <div class="drop-zone" data-correct="Comburant"><img src="images/Comburant.gif" alt="Symbole Comburant"></div>
+        <div class="drop-zone" data-correct="Corrosif"><img src="images/Corrosif.gif" alt="Symbole Corrosif"></div>
+        <div class="drop-zone" data-correct="Danger pour l’environnement"><img src="images/Danger pour l'environnement.gif" alt="Symbole Danger environnement"></div>
+        <div class="drop-zone" data-correct="Danger pour la santé"><img src="images/Danger pour la santé.gif" alt="Symbole Danger santé"></div>
+        <div class="drop-zone" data-correct="Explosif"><img src="images/Explosif.gif" alt="Symbole Explosif"></div>
+        <div class="drop-zone" data-correct="Gaz sous pression"><img src="images/Gaz sous pression.gif" alt="Symbole Gaz sous pression"></div>
+        <div class="drop-zone" data-correct="Inflammable"><img src="images/Inflammable.gif" alt="Symbole Inflammable"></div>
+        <div class="drop-zone" data-correct="Nocif ou irritant"><img src="images/Nocif ou irritant.gif" alt="Symbole Nocif ou irritant"></div>
+        <div class="drop-zone" data-correct="Toxique"><img src="images/Toxique.gif" alt="Symbole Toxique"></div>
+    </div>
+    <div class="mots-zone">
+        <div class="draggable" draggable="true" data-word="Comburant">Comburant</div>
+        <div class="draggable" draggable="true" data-word="Danger pour la santé">Danger pour la santé</div>
+        <div class="draggable" draggable="true" data-word="Corrosif">Corrosif</div>
+        <div class="draggable" draggable="true" data-word="Gaz sous pression">Gaz sous pression</div>
+        <div class="draggable" draggable="true" data-word="Explosif">Explosif</div>
+        <div class="draggable" draggable="true" data-word="Toxique">Toxique</div>
+        <div class="draggable" draggable="true" data-word="Inflammable">Inflammable</div>
+        <div class="draggable" draggable="true" data-word="Nocif ou irritant">Nocif ou irritant</div>
+        <div class="draggable" draggable="true" data-word="Danger pour l’environnement">Danger pour l’environnement</div>
+    </div>
+    <button onclick="validerAssociations()">Valider</button>
+    <div id="feedback"></div>
 </div>
 <script>
   const draggables = document.querySelectorAll('.draggable');
