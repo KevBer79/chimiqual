@@ -84,15 +84,3 @@ button:hover {
     border-color: white;
     transform: scale(1.05);
 }
-
-.timer-container {
-    background: rgba(0, 69, 255, 0.85);
-    padding: 20px;
-    border-radius: 15px;
-    margin-top: 20px;
-    font-size: 2rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    box-shadow: 0 10px 20px rgba(0, 69, 255, 0.7);
-    border: 3px solid #002eaa;
-}
