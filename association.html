@@ -53,6 +53,26 @@
       font-size: 1.2rem;
       font-weight: bold;
     }
+
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 25px 40px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    .popup.hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -83,6 +103,16 @@
     <button onclick="validerAssociations()">Valider</button>
     <div id="feedback"></div>
 </div>
+  <button onclick="validerAssociations()">Valider</button>
+  <button onclick="resetAssociations()">Réinitialiser</button>
+  <div id="feedback"></div>
+</div>
+
+<!-- 🎉 POPUP CODE -->
+<div id="popup-code" class="popup hidden">
+  <p>Bravo ! Le mot code est : <strong>Encre</strong></p>
+</div>
+
 <script>
   const draggables = document.querySelectorAll('.draggable');
   const dropZones = document.querySelectorAll('.drop-zone');
@@ -92,8 +122,7 @@
       e.dataTransfer.setData('text/plain', drag.getAttribute('data-word'));
       drag.classList.add('is-dragging');
     });
-
-    drag.addEventListener('dragend', e => {
+    drag.addEventListener('dragend', () => {
       drag.classList.remove('is-dragging');
     });
   });
@@ -141,8 +170,7 @@
 
     const feedback = document.getElementById('feedback');
     if (score === dropZones.length) {
-      feedback.textContent = `Bravo ! Le mot code est: Encre`;
-      feedback.style.color = 'lightgreen';
+      document.getElementById('popup-code').classList.remove('hidden');
     } else {
       feedback.textContent = `${score} bonnes réponses sur ${dropZones.length}. Essayez encore !`;
       feedback.style.color = 'orange';
@@ -159,12 +187,8 @@
   }
 
   window.onload = function () {
-    // Plus de minuterie
+    // Pas de minuterie
   };
 </script>
-  <div id="popup-code" class="popup hidden">
-  <p>Bravo ! Le mot code est : <strong>Encre</strong></p>
-</div>
-
 </body>
 </html>
